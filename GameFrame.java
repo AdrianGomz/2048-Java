@@ -3,6 +3,7 @@ import javax.swing.JFrame;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.GridLayout;
+import java.util.Arrays;
 
 public class GameFrame extends JFrame {
     Board GameBoard;
@@ -59,6 +60,8 @@ public class GameFrame extends JFrame {
         @Override
         public void keyPressed(KeyEvent e) {
             int keyCode = e.getKeyCode();
+            // Copy of the current tiles values before making the move
+            int[][] prevTileValues = Arrays.copyOf(GameBoard.tilesValues, GameBoard.tilesValues.length);
             switch (keyCode) {
                 case KeyEvent.VK_UP:
                     GameBoard.moveUp();
@@ -75,6 +78,12 @@ public class GameFrame extends JFrame {
                 case KeyEvent.VK_LEFT:
                     GameBoard.moveLeft();
                     break;
+            }
+            // If the previus value of the tiles is different from the actual value we
+            // create a new random tile.
+            if (!Arrays.deepEquals(GameBoard.tilesValues, prevTileValues)) {
+                GameBoard.newRandomTile();
+
             }
 
             updateTiles();

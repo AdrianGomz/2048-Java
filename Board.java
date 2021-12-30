@@ -19,7 +19,7 @@ public class Board {
         newRandomTile();
     }
 
-    private void newRandomTile() {
+    public void newRandomTile() {
 
         // ArrayList to list all the coordinates of the empty spaces
         ArrayList<Integer[]> emptySpaces = new ArrayList<Integer[]>();
@@ -113,12 +113,13 @@ public class Board {
     }
 
     public void moveUp() {
+
         tilesValues = getTranspose(tilesValues);
         for (int i = 0; i < tilesValues.length; i++) {
             tilesValues[i] = mergeLineToLeft(tilesValues[i]);
         }
         tilesValues = getTranspose(tilesValues);
-        newRandomTile();
+
     }
 
     public void moveDown() {
@@ -127,21 +128,18 @@ public class Board {
             tilesValues[i] = mergeLineToRight(tilesValues[i]);
         }
         tilesValues = getTranspose(tilesValues);
-        newRandomTile();
     }
 
     public void moveLeft() {
         for (int i = 0; i < tilesValues.length; i++) {
             tilesValues[i] = mergeLineToLeft(tilesValues[i]);
         }
-        newRandomTile();
     }
 
     public void moveRight() {
         for (int i = 0; i < tilesValues.length; i++) {
             tilesValues[i] = mergeLineToRight(tilesValues[i]);
         }
-        newRandomTile();
     }
 
 }
