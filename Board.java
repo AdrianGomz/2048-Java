@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Board {
     public int[][] tilesValues = new int[4][4];
@@ -120,7 +119,6 @@ public class Board {
         }
         tilesValues = getTranspose(tilesValues);
         newRandomTile();
-        System.out.println(Arrays.deepToString(tilesValues));
     }
 
     public void moveDown() {
@@ -130,7 +128,6 @@ public class Board {
         }
         tilesValues = getTranspose(tilesValues);
         newRandomTile();
-        System.out.println(Arrays.deepToString(tilesValues));
     }
 
     public void moveLeft() {
@@ -138,7 +135,6 @@ public class Board {
             tilesValues[i] = mergeLineToLeft(tilesValues[i]);
         }
         newRandomTile();
-        System.out.println(Arrays.deepToString(tilesValues));
     }
 
     public void moveRight() {
@@ -146,7 +142,6 @@ public class Board {
             tilesValues[i] = mergeLineToRight(tilesValues[i]);
         }
         newRandomTile();
-        System.out.println(Arrays.deepToString(tilesValues));
     }
 
 }

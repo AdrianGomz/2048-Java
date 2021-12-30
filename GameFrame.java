@@ -2,11 +2,11 @@ import javax.swing.JFrame;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import java.awt.GridLayout;
 
 public class GameFrame extends JFrame {
     Board GameBoard;
+    Tile[][] tilesPanels = new Tile[4][4];
 
     GameFrame(Board GameBoard) {
         this.GameBoard = GameBoard;
@@ -22,11 +22,22 @@ public class GameFrame extends JFrame {
 
     };
 
+    public void updateTiles() {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                tilesPanels[i][j].update(this.GameBoard.tilesValues[i][j]);
+            }
+
+        }
+
+    }
+
     public void drawTiles() {
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                this.add(new Tile(this.GameBoard.tilesValues[i][j]));
+                tilesPanels[i][j] = (new Tile(this.GameBoard.tilesValues[i][j]));
+                this.add(tilesPanels[i][j]);
             }
 
         }
@@ -65,7 +76,8 @@ public class GameFrame extends JFrame {
                     GameBoard.moveLeft();
                     break;
             }
-            drawTiles();
+
+            updateTiles();
 
         }
 
