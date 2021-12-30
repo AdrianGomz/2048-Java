@@ -65,7 +65,6 @@ public class GameFrame extends JFrame {
                     GameBoard.moveLeft();
                     break;
             }
-            System.out.println("here");
             drawTiles();
 
         }
