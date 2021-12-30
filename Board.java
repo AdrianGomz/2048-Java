@@ -92,6 +92,18 @@ public class Board {
 
     }
 
+    private int[][] getTranspose(int[][] tiles) {
+        int[][] transpose = new int[4][4];
+        for (int row = 0; row < 4; row++) {
+            for (int col = 0; col < 4; col++) {
+                transpose[col][row] = tiles[row][col];
+
+            }
+        }
+        return transpose;
+
+    }
+
     private int[] reverseLine(int[] line) {
         int[] newArr = new int[line.length];
         for (int i = 0; i < line.length / 2; i++) {
@@ -102,14 +114,21 @@ public class Board {
     }
 
     public void moveUp() {
-        System.out.println("up");
-        int[] arr = { 2, 0, 4, 4 };
-        System.out.println(Arrays.toString(mergeLineToLeft(arr)));
-        System.out.println(Arrays.toString(mergeLineToRight(arr)));
+        tilesValues = getTranspose(tilesValues);
+        for (int i = 0; i < tilesValues.length; i++) {
+            tilesValues[i] = mergeLineToLeft(tilesValues[i]);
+        }
+        tilesValues = getTranspose(tilesValues);
+        System.out.println(Arrays.deepToString(tilesValues));
     }
 
     public void moveDown() {
-        System.out.println("down");
+        tilesValues = getTranspose(tilesValues);
+        for (int i = 0; i < tilesValues.length; i++) {
+            tilesValues[i] = mergeLineToRight(tilesValues[i]);
+        }
+        tilesValues = getTranspose(tilesValues);
+        System.out.println(Arrays.deepToString(tilesValues));
     }
 
     public void moveLeft() {
