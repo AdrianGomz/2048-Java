@@ -29,7 +29,11 @@ public class Tile extends JPanel {
     Tile(int i) {
         this.setPreferredSize(new Dimension(100, 100));
         this.num = i;
-        numLabel = new JLabel(Integer.toString(num));
+        if (num != 0) {
+            numLabel = new JLabel(Integer.toString(num));
+        } else {
+            numLabel = new JLabel("");
+        }
         numLabel.setPreferredSize(new Dimension(90, 90));
         numLabel.setHorizontalAlignment(JLabel.CENTER);
         numLabel.setForeground(Color.white);
@@ -43,7 +47,11 @@ public class Tile extends JPanel {
     public void update(int num) {
         this.num = num;
         numLabel.setBackground(colors.get(num));
-        numLabel.setText(Integer.toString(num));
+        if (num != 0) {
+            numLabel.setText(Integer.toString(num));
+        } else {
+            numLabel.setText("");
+        }
 
     }
 
