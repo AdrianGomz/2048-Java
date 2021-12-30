@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Board {
     public int[][] tilesValues = new int[4][4];
@@ -48,6 +49,83 @@ public class Board {
         tilesValues[rowVal][colVal] = newTileVal;
         return;
 
+    }
+
+    private int[] mergeLineToLeft(int[] line) {
+
+        int[] newArr = new int[line.length];
+
+        int current = 0;
+        // we loop through the entire array
+        for (int i = 0; i < line.length; i++) {
+            // Initializing all the values of the new array to 0
+            newArr[i] = 0;
+            // we only care if the i'th element is different from 0
+            if (line[i] != 0) {
+                // if the current space in the newArr is 0 we repalce it with line[i]
+                if (newArr[current] == 0) {
+                    newArr[current] = line[i];
+                }
+                // if the current space in newArr is diferent from 0 we have to ckeck if
+                // it is equal or different to the current value, if it is we add them up
+                // else we assign the next space in newArr to the current value in the line
+                else {
+                    if (newArr[current] == line[i]) {
+                        newArr[current] += line[i];
+
+                    } else {
+                        newArr[current + 1] = line[i];
+                    }
+                    current++;
+                }
+            }
+
+        }
+
+        return newArr;
+    }
+
+    private int[] mergeLineToRight(int[] line) {
+        int[] reversedMergedLine = mergeLineToLeft(reverseLine(line));
+
+        return reverseLine(reversedMergedLine);
+
+    }
+
+    private int[] reverseLine(int[] line) {
+        int[] newArr = new int[line.length];
+        for (int i = 0; i < line.length / 2; i++) {
+            newArr[i] = line[line.length - 1 - i];
+            newArr[line.length - 1 - i] = line[i];
+        }
+        return newArr;
+    }
+
+    public void moveUp() {
+        System.out.println("up");
+        int[] arr = { 2, 0, 4, 4 };
+        System.out.println(Arrays.toString(mergeLineToLeft(arr)));
+        System.out.println(Arrays.toString(mergeLineToRight(arr)));
+    }
+
+    public void moveDown() {
+        System.out.println("down");
+    }
+
+    public void moveLeft() {
+        for (int i = 0; i < tilesValues.length; i++) {
+            tilesValues[i] = mergeLineToLeft(tilesValues[i]);
+        }
+        newRandomTile();
+        System.out.println(Arrays.deepToString(tilesValues));
+    }
+
+    public void moveRight() {
+        for (int i = 0; i < tilesValues.length; i++) {
+            tilesValues[i] = mergeLineToRight(tilesValues[i]);
+        }
+        newRandomTile();
+        System.out.println(Arrays.deepToString(tilesValues));
     }
 
 }
