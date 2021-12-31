@@ -55,10 +55,4 @@ public class Tile extends JPanel {
 
     }
 
-    // public void paint(Graphics g) {
-    // g.fillRoundRect(5, 5, 90, 90, 10, 10);
-    // g.setColor(Color.white);
-    // g.drawString(Integer.toString(num), 50, 50);
-
-    // }
 }

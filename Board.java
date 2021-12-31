@@ -112,6 +112,39 @@ public class Board {
         return newArr;
     }
 
+    boolean checkForLoose() {
+        for (int row = 0; row < 4; row++) {
+            for (int col = 0; col < 4; col++) {
+                boolean checkRight = false;
+                boolean checkDown = false;
+                if (col != 3) {
+                    checkRight = tilesValues[row][col] == tilesValues[row][col + 1];
+                }
+                if (row != 3) {
+                    checkDown = tilesValues[row][col] == tilesValues[row + 1][col];
+                }
+                if (checkRight || checkDown) {
+                    return false;
+                }
+                if (tilesValues[row][col] == 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    boolean checkForWin() {
+        for (int row = 0; row < 4; row++) {
+            for (int col = 0; col < 4; col++) {
+                if (tilesValues[row][col] == 2048) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public void moveUp() {
 
         tilesValues = getTranspose(tilesValues);

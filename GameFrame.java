@@ -45,10 +45,10 @@ public class GameFrame extends JFrame {
     }
 
     class KeyMoves implements KeyListener {
-        Board GameBoard;
+        Board gameBoard;
 
         KeyMoves(Board GameBoard) {
-            this.GameBoard = GameBoard;
+            this.gameBoard = GameBoard;
         }
 
         @Override
@@ -61,28 +61,28 @@ public class GameFrame extends JFrame {
         public void keyPressed(KeyEvent e) {
             int keyCode = e.getKeyCode();
             // Copy of the current tiles values before making the move
-            int[][] prevTileValues = Arrays.copyOf(GameBoard.tilesValues, GameBoard.tilesValues.length);
+            int[][] prevTileValues = Arrays.copyOf(gameBoard.tilesValues, gameBoard.tilesValues.length);
             switch (keyCode) {
                 case KeyEvent.VK_UP:
-                    GameBoard.moveUp();
+                    gameBoard.moveUp();
                     break;
 
                 case KeyEvent.VK_DOWN:
-                    GameBoard.moveDown();
+                    gameBoard.moveDown();
                     break;
 
                 case KeyEvent.VK_RIGHT:
-                    GameBoard.moveRight();
+                    gameBoard.moveRight();
                     break;
 
                 case KeyEvent.VK_LEFT:
-                    GameBoard.moveLeft();
+                    gameBoard.moveLeft();
                     break;
             }
             // If the previus value of the tiles is different from the actual value we
             // create a new random tile.
-            if (!Arrays.deepEquals(GameBoard.tilesValues, prevTileValues)) {
-                GameBoard.newRandomTile();
+            if (!Arrays.deepEquals(gameBoard.tilesValues, prevTileValues)) {
+                gameBoard.newRandomTile();
 
             }
 
