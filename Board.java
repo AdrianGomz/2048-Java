@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Board {
     public int[][] tilesValues = new int[4][4];
+    public boolean running = true;
 
     Board() {
         createNewBoard();
@@ -17,6 +18,10 @@ public class Board {
         // add two random tiles
         newRandomTile();
         newRandomTile();
+    }
+
+    public void restart() {
+        createNewBoard();
     }
 
     public void newRandomTile() {

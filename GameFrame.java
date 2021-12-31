@@ -44,6 +44,10 @@ public class GameFrame extends JFrame {
         }
     }
 
+    public GameFrame getGameFrameInstance() {
+        return this;
+    }
+
     class KeyMoves implements KeyListener {
         Board gameBoard;
 
@@ -59,34 +63,44 @@ public class GameFrame extends JFrame {
 
         @Override
         public void keyPressed(KeyEvent e) {
-            int keyCode = e.getKeyCode();
-            // Copy of the current tiles values before making the move
-            int[][] prevTileValues = Arrays.copyOf(gameBoard.tilesValues, gameBoard.tilesValues.length);
-            switch (keyCode) {
-                case KeyEvent.VK_UP:
-                    gameBoard.moveUp();
-                    break;
+            if (gameBoard.running) {
 
-                case KeyEvent.VK_DOWN:
-                    gameBoard.moveDown();
-                    break;
+                int keyCode = e.getKeyCode();
+                // Copy of the current tiles values before making the move
+                int[][] prevTileValues = Arrays.copyOf(gameBoard.tilesValues, gameBoard.tilesValues.length);
+                switch (keyCode) {
+                    case KeyEvent.VK_UP:
+                        gameBoard.moveUp();
+                        break;
 
-                case KeyEvent.VK_RIGHT:
-                    gameBoard.moveRight();
-                    break;
+                    case KeyEvent.VK_DOWN:
+                        gameBoard.moveDown();
+                        break;
 
-                case KeyEvent.VK_LEFT:
-                    gameBoard.moveLeft();
-                    break;
+                    case KeyEvent.VK_RIGHT:
+                        gameBoard.moveRight();
+                        break;
+
+                    case KeyEvent.VK_LEFT:
+                        gameBoard.moveLeft();
+                        break;
+                }
+                // If the previus value of the tiles is different from the actual value we
+                // create a new random tile.
+                if (!Arrays.deepEquals(gameBoard.tilesValues, prevTileValues)) {
+                    gameBoard.newRandomTile();
+
+                }
+
+                updateTiles();
+                if (gameBoard.checkForLoose()) {
+                    new RestartWindow("loose", gameBoard, getGameFrameInstance());
+                    gameBoard.running = false;
+                } else if (gameBoard.checkForWin()) {
+                    new RestartWindow("win", gameBoard, getGameFrameInstance());
+                    gameBoard.running = false;
+                }
             }
-            // If the previus value of the tiles is different from the actual value we
-            // create a new random tile.
-            if (!Arrays.deepEquals(gameBoard.tilesValues, prevTileValues)) {
-                gameBoard.newRandomTile();
-
-            }
-
-            updateTiles();
 
         }
 
